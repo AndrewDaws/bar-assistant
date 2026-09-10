@@ -57,9 +57,6 @@ final readonly class ImageUploadService
     public function changeImage(int $imageId, ImageUploadResult $newImage): ImageUploadResult
     {
         $imageModel = Image::findOrFail($imageId);
-        if ($imageModel->imageable === null) {
-            throw new \RuntimeException('Image does not have an attached resource');
-        }
 
         // For temporary images we can just use the new image that is also temporary
         if ($imageModel->isTemporaryImage()) {
@@ -68,9 +65,14 @@ final readonly class ImageUploadService
             return $newImage;
         }
 
+        $imageable = $imageModel->imageable;
+        if ($imageable === null) {
+            throw new \RuntimeException('Image does not have an attached resource');
+        }
+
         // For images with attached resource, we need to move it to correct
         // upload folder and then update the path
-        $newImagePath = $imageModel->imageable->generateImagePath($newImage->extension);
+        $newImagePath = $imageable->generateImagePath($newImage->extension);
 
         if ($this->filesystem->exists($newImage->path)) {
             $this->filesystem->move($newImage->path, $newImagePath);
