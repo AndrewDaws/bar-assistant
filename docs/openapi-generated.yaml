@@ -11343,6 +11343,8 @@ components:
         - ingredients.write
         - bars.read
         - bars.write
+        - menu.read
+        - menu.write
     BarStatusEnum:
       type: string
       enum:
