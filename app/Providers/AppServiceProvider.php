@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Paddle\Cashier;
 use BarAssistant\Domain\DomainEventDispatcher;
 use Kami\Cocktail\Infrastructure\DomainEventSubscriber\CleanupUserAnonymizedSubscriber;
 use Kami\Cocktail\Infrastructure\DomainEventSubscriber\ClearPublicCocktailsCacheSubscriber;
@@ -26,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     #[\Override]
     public function register()
     {
-        //
+        Cashier::ignoreRoutes();
     }
 
     /**

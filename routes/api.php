@@ -84,7 +84,13 @@ Route::prefix('exports')->group(function () {
     Route::get('/{id}/download', [ExportController::class, 'download'])->name('exports.download');
 });
 
-Route::post('/billing/webhook', WebhookController::class);
+if (config('cashier.webhook_secret')) {
+    Route::post('/billing/webhook', WebhookController::class);
+} else {
+    Route::post('/billing/webhook', function () {
+        abort(403, 'Paddle webhook secret is not configured. Set the PADDLE_WEBHOOK_SECRET environment variable.');
+    });
+}
 
 Route::prefix('public')->group(function () {
     Route::get('/links/cocktails/{publicId}', [Public\CocktailController::class, 'showPublicLinkCocktail']);

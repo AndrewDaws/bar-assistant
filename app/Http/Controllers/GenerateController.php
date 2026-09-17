@@ -89,8 +89,12 @@ class GenerateController extends Controller
     public function completeCocktailTags(CompleteCocktailTagsRequest $request): GeneratedCocktailTagsResource
     {
         $cocktailId = $request->input('cocktail_id');
-        $cocktail = Cocktail::where('slug', $cocktailId)
-            ->orWhere('id', $cocktailId)
+        $cocktail = Cocktail::query()
+            ->where('bar_id', bar()->id)
+            ->where(function ($query) use ($cocktailId) {
+                $query->where('slug', $cocktailId)
+                    ->orWhere('id', $cocktailId);
+            })
             ->firstOrFail();
 
         // Limit to top 50 most used tags to reduce token usage
