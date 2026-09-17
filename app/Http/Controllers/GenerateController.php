@@ -97,6 +97,10 @@ class GenerateController extends Controller
             })
             ->firstOrFail();
 
+        if ($request->user()->cannot('show', $cocktail)) {
+            abort(403);
+        }
+
         // Limit to top 50 most used tags to reduce token usage
         $existingTags = Tag::where('bar_id', $cocktail->bar_id)
             ->withCount('cocktails')
