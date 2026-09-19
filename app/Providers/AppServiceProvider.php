@@ -4,13 +4,13 @@ namespace Kami\Cocktail\Providers;
 
 use Throwable;
 use Illuminate\Support\Str;
+use Laravel\Paddle\Cashier;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Paddle\Cashier;
 use BarAssistant\Domain\DomainEventDispatcher;
 use Kami\Cocktail\Infrastructure\DomainEventSubscriber\CleanupUserAnonymizedSubscriber;
 use Kami\Cocktail\Infrastructure\DomainEventSubscriber\ClearPublicCocktailsCacheSubscriber;
