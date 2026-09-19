@@ -4343,6 +4343,17 @@ paths:
                 description: 'Show only ingredients with strength less than or equal to given value'
                 type: number
                 format: float
+              user_rating_min:
+                description: 'Show only ingredients the requesting member has rated greater than or equal to given value'
+                type: number
+                format: float
+              average_rating_min:
+                description: 'Show only ingredients with an average rating greater than or equal to given value'
+                type: number
+                format: float
+              review_recommendation:
+                description: 'Show only ingredients with a review recommendation in the given comma separated list of `avoid`, `decent`, `recommend`'
+                type: string
               main_ingredients:
                 description: 'Show only ingredients that are used as main ingredients in cocktails'
                 type: boolean

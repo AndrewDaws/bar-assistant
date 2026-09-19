@@ -491,6 +491,29 @@ class Ingredient extends BaseModel implements UploadableInterface, IsExternalize
     }
 
     /**
+     * Include ratings information
+     *
+     * @param Builder<self> $query
+     * @param int $userId
+     * @return Builder<self>
+     */
+    public function scopeWithRatings(Builder $query, int $userId): Builder
+    {
+        $this->loadMissing('ratings');
+
+        return $query->addSelect([
+            'average_rating' => Rating::selectRaw('AVG(rating)')
+                ->whereColumn('rateable_id', 'ingredients.id')
+                ->whereColumn('rateable_type', Ingredient::class),
+            'user_rating' => Rating::select('rating')
+                ->whereColumn('rateable_id', 'ingredients.id')
+                ->whereColumn('rateable_type', Ingredient::class)
+                ->where('bar_memberships.user_id', $userId)
+                ->join('bar_memberships', 'bar_memberships.id', '=', 'ratings.bar_membership_id'),
+        ]);
+    }
+
+    /**
      * @param Builder<self> $query
      */
     public function scopeWithInBarShelfColumn(Builder $query): void
