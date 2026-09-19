@@ -59,10 +59,10 @@ class IngredientController extends Controller
     #[BAO\SuccessfulResponse(content: [
         new BAO\PaginateData(IngredientResource::class, [
             new OAT\Property(property: 'filters', type: 'object', required: ['origins', 'distilleries'], properties: [
-                new OAT\Property(property: 'origins', type: 'array', required: ['name'], items: new OAT\Items(type: 'object', properties: [
+                new OAT\Property(property: 'origins', type: 'array', items: new OAT\Items(type: 'object', required: ['name'], properties: [
                     new OAT\Property(property: 'name', type: 'string'),
                 ])),
-                new OAT\Property(property: 'distilleries', type: 'array', required: ['name'], items: new OAT\Items(type: 'object', properties: [
+                new OAT\Property(property: 'distilleries', type: 'array', items: new OAT\Items(type: 'object', required: ['name'], properties: [
                     new OAT\Property(property: 'name', type: 'string'),
                 ])),
             ]),

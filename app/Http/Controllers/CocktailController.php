@@ -91,10 +91,10 @@ class CocktailController extends Controller
     #[BAO\SuccessfulResponse(content: [
         new BAO\PaginateData(CocktailResource::class, [
             new OAT\Property(property: 'filters', type: 'object', required: ['authors', 'origin_bars'], properties: [
-                new OAT\Property(property: 'authors', type: 'array', required: ['name'], items: new OAT\Items(type: 'object', properties: [
+                new OAT\Property(property: 'authors', type: 'array', items: new OAT\Items(type: 'object', required: ['name'], properties: [
                     new OAT\Property(property: 'name', type: 'string'),
                 ])),
-                new OAT\Property(property: 'origin_bars', type: 'array', required: ['name'], items: new OAT\Items(type: 'object', properties: [
+                new OAT\Property(property: 'origin_bars', type: 'array', items: new OAT\Items(type: 'object', required: ['name'], properties: [
                     new OAT\Property(property: 'name', type: 'string'),
                 ])),
             ]),
